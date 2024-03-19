@@ -1,4 +1,4 @@
-/*
+
 #svc account creation
 module "svc-account" {
   source 	= "./modules/svcacc"
@@ -6,7 +6,7 @@ module "svc-account" {
   name 		= var.sa
   display_name  = "cca-svc-account"
 }
-*/
+
 #topic creation iam binding
 module "app-topic" {
   source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//topic"

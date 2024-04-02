@@ -82,7 +82,7 @@ module "app-pubsub-eventshare" {
 }
 
 module "app_buckets" {
-  source        = "./modules/storage"
+  source        = "git::https://github.com/Swamy-Pepakayala/cca-modules.git//storage"
   project_id    = var.project_id
   location      = var.location
   storage_class = "REGIONAL"
@@ -109,7 +109,7 @@ module "app_buckets" {
 }
 
 module "app_bucket-retention" {
-  source        = "./modules/storage"
+  source        = "git::https://github.com/Swamy-Pepakayala/cca-modules.git//storage"
   project_id    = var.project_id
   location      = var.location
   storage_class = "REGIONAL"
@@ -131,7 +131,7 @@ module "app_bucket-retention" {
 }
 
 module "app-cloudrun" {
-  source  	= "./modules/cloudrun"
+  source  	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudrun"
   service 	= "cca-cldrun"
   project_id	= var.project_id
   location 	= var.location
@@ -143,7 +143,7 @@ module "app-cloudrun" {
 
 
 module "app_src_bucket" {
-  source        = "./modules/storage"
+  source        = "git::https://github.com/Swamy-Pepakayala/cca-modules.git//storage"
   project_id    = var.project_id
   location      = var.location
   storage_class = "REGIONAL"
@@ -166,7 +166,7 @@ module "app_src_bucket" {
 
 #it will have pubsub trigger
 module "app-cloudfuncv2-valsvc" {
-  source 	= "./modules/cloudfunctionsv2"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2"
   project_id	= var.project_id
   location	= var.location
   names		= ["cca-valsvc"]
@@ -182,7 +182,7 @@ module "app-cloudfuncv2-valsvc" {
 }
 
 module "app-cloudfuncv2-handshake" {
-  source 	= "./modules/cloudfunctionsv2"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2""
   project_id	= var.project_id
   location	= var.location
   names		= ["cca-handshake"]
@@ -200,7 +200,7 @@ module "app-cloudfuncv2-handshake" {
 
 
 module "app-cloudfuncv2-failsvc" {
-  source 	= "./modules/cloudfunctionsv2"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2""
   project_id	= var.project_id
   location	= var.location
   names		= ["cca-failsvc"]
@@ -216,7 +216,7 @@ module "app-cloudfuncv2-failsvc" {
 }
 
 module "app-cloudfuncv2-rdsvc" {
-  source 	= "./modules/cloudfunctionsv2"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2""
   project_id	= var.project_id
   location	= var.location
   names		= ["cca-rdsvc"]
@@ -233,7 +233,7 @@ module "app-cloudfuncv2-rdsvc" {
 
 # to schedule cloud functions
 module "app-cloudsch" {
-  source 	= "./modules/scheduler"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//scheduler"
   project_id	= var.project_id
   names		= ["cca-failsvc-sch","cca-rdsvc-sch"]
   schedule	= "59 23 * * *"

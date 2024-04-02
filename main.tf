@@ -182,7 +182,7 @@ module "app-cloudfuncv2-valsvc" {
 }
 
 module "app-cloudfuncv2-handshake" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2""
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2"
   project_id	= var.project_id
   location	= var.location
   names		= ["cca-handshake"]
@@ -200,7 +200,7 @@ module "app-cloudfuncv2-handshake" {
 
 
 module "app-cloudfuncv2-failsvc" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2""
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2"
   project_id	= var.project_id
   location	= var.location
   names		= ["cca-failsvc"]
@@ -216,7 +216,7 @@ module "app-cloudfuncv2-failsvc" {
 }
 
 module "app-cloudfuncv2-rdsvc" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2""
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2"
   project_id	= var.project_id
   location	= var.location
   names		= ["cca-rdsvc"]

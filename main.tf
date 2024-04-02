@@ -1,7 +1,7 @@
 
 #svc account creation
 module "svc-account" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//svcacc"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//svcacc?ref=main"
   project_id	= var.project_id
   name 		= var.sa
   display_name  = "cca-svc-account"
@@ -9,14 +9,14 @@ module "svc-account" {
 
 #topic creation iam binding
 module "app-topic" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//topic"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//topic?ref=main"
   project_id	= var.project_id
   name		= ["cca-topic","cca-eventsharing"]
 }
 
 #create subscriptions for cca-topic
 module "app-pubsub-ccatopic" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//pubsub"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//pubsub?ref=main"
   project_id	= var.project_id
   topic_name 	= "cca-topic"
   subscriptions	= {
@@ -50,7 +50,7 @@ module "app-pubsub-ccatopic" {
 
 #create subscriptions for cca-eventsharing
 module "app-pubsub-eventshare" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//pubsub"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//pubsub?ref=main"
   project_id	= var.project_id
   topic_name 	= "cca-eventsharing"
   subscriptions	= {
@@ -109,7 +109,7 @@ module "app_buckets" {
 }
 
 module "app_bucket-retention" {
-  source        = "git::https://github.com/Swamy-Pepakayala/cca-modules.git//storage"
+  source        = "git::https://github.com/Swamy-Pepakayala/cca-modules.git//storage?ref=main"
   project_id    = var.project_id
   location      = var.location
   storage_class = "REGIONAL"
@@ -131,7 +131,7 @@ module "app_bucket-retention" {
 }
 
 module "app-cloudrun" {
-  source  	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudrun"
+  source  	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudrun?ref=main"
   service 	= "cca-cldrun"
   project_id	= var.project_id
   location 	= var.location
@@ -143,7 +143,7 @@ module "app-cloudrun" {
 
 
 module "app_src_bucket" {
-  source        = "git::https://github.com/Swamy-Pepakayala/cca-modules.git//storage"
+  source        = "git::https://github.com/Swamy-Pepakayala/cca-modules.git//storage?ref=main"
   project_id    = var.project_id
   location      = var.location
   storage_class = "REGIONAL"
@@ -166,7 +166,7 @@ module "app_src_bucket" {
 
 #it will have pubsub trigger
 module "app-cloudfuncv2-valsvc" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2?ref=main"
   project_id	= var.project_id
   location	= var.location
   names		= ["cca-valsvc"]
@@ -182,7 +182,7 @@ module "app-cloudfuncv2-valsvc" {
 }
 
 module "app-cloudfuncv2-handshake" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2?ref=main"
   project_id	= var.project_id
   location	= var.location
   names		= ["cca-handshake"]
@@ -200,7 +200,7 @@ module "app-cloudfuncv2-handshake" {
 
 
 module "app-cloudfuncv2-failsvc" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2?ref=main"
   project_id	= var.project_id
   location	= var.location
   names		= ["cca-failsvc"]
@@ -216,7 +216,7 @@ module "app-cloudfuncv2-failsvc" {
 }
 
 module "app-cloudfuncv2-rdsvc" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudfunctionsv2?ref=main"
   project_id	= var.project_id
   location	= var.location
   names		= ["cca-rdsvc"]
@@ -233,7 +233,7 @@ module "app-cloudfuncv2-rdsvc" {
 
 # to schedule cloud functions
 module "app-cloudsch" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//scheduler"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//scheduler?ref=main"
   project_id	= var.project_id
   names		= ["cca-failsvc-sch","cca-rdsvc-sch"]
   schedule	= "59 23 * * *"

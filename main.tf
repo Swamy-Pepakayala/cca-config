@@ -80,7 +80,7 @@ module "app-pubsub-eventshare" {
   }
   depends_on = [module.app-topic]
 }
-/*
+
 module "app_buckets" {
   source        = "./modules/storage"
   project_id    = var.project_id
@@ -241,4 +241,4 @@ module "app-cloudsch" {
   #module.app-cloudfuncv2.url[3]]
   sa_email 	= module.svc-account.sa_email
 }
-*/
+

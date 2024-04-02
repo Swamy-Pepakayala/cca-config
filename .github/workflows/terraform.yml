@@ -19,7 +19,7 @@ jobs:
     defaults:
       run:
         shell: bash
-  #      working-directory: C:\cca-config
+  # ##     working-directory: C:\cca-config
 
     steps:
     # Checkout the repository to the GitHub Actions runner

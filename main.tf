@@ -129,7 +129,7 @@ module "app_bucket-retention" {
     delete_age = 21
   }
 }
-
+/*
 module "app-cloudrun" {
   source  	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudrun?ref=main"
   service 	= "cca-cldrun"
@@ -140,7 +140,7 @@ module "app-cloudrun" {
   service_account_email = module.svc-account.sa_email
   depends_on = [module.svc-account]
 }
-
+*/
 
 module "app_src_bucket" {
   source        = "git::https://github.com/Swamy-Pepakayala/cca-modules.git//storage?ref=main"

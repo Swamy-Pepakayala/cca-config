@@ -230,7 +230,7 @@ module "app-cloudfuncv2-rdsvc" {
   pubsub_topic  = module.app-topic.id[1]
   depends_on = [module.svc-account,module.app-topic] 
 }
-
+/*
 # to schedule cloud functions
 module "app-cloudsch" {
   source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//scheduler?ref=main"
@@ -241,4 +241,4 @@ module "app-cloudsch" {
   #module.app-cloudfuncv2.url[3]]
   sa_email 	= module.svc-account.sa_email
 }
-
+*/

@@ -35,6 +35,7 @@ jobs:
       run: terraform init --var-file=dev.tfvars
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }} 
+        PAT_TOKEN: ${{ secrets.GCP_TOKEN }}
 
 
     # Generates an execution plan for Terraform

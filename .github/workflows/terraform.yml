@@ -31,7 +31,12 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       
     - name: Initialize github
-      run: git config --global url."https://${{secrets.GCP_TOKEN}}@github.com"
+    #  run: git config --global url."https://${{secrets.GCP_TOKEN}}@github.com"
+      env:
+          GITHUB_TOKEN: ${{ secrets.GCP_TOKEN }}
+      run: |
+          git config --global credential.helper store
+          git ls-remote https://github.com/Swamy-Pepakayala/cca-infra.git
 
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.

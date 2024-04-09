@@ -1,7 +1,7 @@
 
 ###svc account creation
 module "svc-account" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//svcacc"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-infra.git//svcacc"
   project_id	= var.project_id
   name 		= var.sa
   display_name  = "cca-svc-account"
@@ -9,11 +9,12 @@ module "svc-account" {
 
 #topic creation iam binding
 module "app-topic" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//topic"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-infra.git//topic"
   project_id	= var.project_id
   name		= ["cca-topic","cca-eventsharing"]
 }
 
+/*
 #create subscriptions for cca-topic
 module "app-pubsub-ccatopic" {
   source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//pubsub"
@@ -80,6 +81,7 @@ module "app-pubsub-eventshare" {
   }
   depends_on = [module.app-topic]
 }
+*/
 /*
 module "app_buckets" {
   source        = "./modules/storage"

@@ -1,7 +1,7 @@
 
 ###svc account creation
 module "svc-account" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-infra.git//svcacc?ref=main"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//svcacc?ref=main"
   project_id	= var.project_id
   name 		= var.sa
   display_name  = "cca-svc-account"
@@ -9,7 +9,7 @@ module "svc-account" {
 
 #topic creation iam binding
 module "app-topic" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-infra.git//topic?ref=main"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//topic?ref=main"
   project_id	= var.project_id
   name		= ["cca-topic","cca-eventsharing"]
 }

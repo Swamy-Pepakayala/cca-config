@@ -31,7 +31,7 @@ jobs:
       uses: hashicorp/setup-terraform@v1
       
     - name: Initialize github
-      run: git config --global url."https://${{secrets.GCP_TOKEN}}@github.com"
+      run: git config --global url."https://${{ secrets.GCP_TOKEN }}@github.com"
       env:
         GITHUB_TOKEN: ${{ secrets.GCP_TOKEN }}
    #   run: |

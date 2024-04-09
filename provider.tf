@@ -8,7 +8,7 @@ provider "google" {
 
 terraform {
  backend "gcs" {
-   bucket  = "ba60c65ce752f442-bucket-tfstate"
+   bucket  = "cca-bucket123"
    prefix  = "terraform/state"
   # credentials = "C:/cca-terraform/gcp-tf/gcp.keys/keys.json"
   

@@ -30,10 +30,10 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       
-    - name: Initialize github
-      run: git config --global url."https://${{ secrets.GCP_TOKEN }}@github.com"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GCP_TOKEN }}
+ #   - name: Initialize github
+  #    run: git config --global url."https://${{ secrets.GCP_TOKEN }}@github.com"
+#      env:
+ #       GITHUB_TOKEN: ${{ secrets.GCP_TOKEN }}
    #   run: |
     #    git config --global credential.helper store
      #   git ls-remote https://github.com/Swamy-Pepakayala/cca-infra.git

@@ -19,7 +19,7 @@ jobs:
     defaults:
       run:
         shell: bash
-  # ##     working-directory: C:\cca-config
+        working-directory: C:\cca-config
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -33,7 +33,7 @@ jobs:
     - name: Initialize github  
       uses: actions/checkout@master
       with:
-        repository: Swamy-Pepakayala/cca-modules
+        repository: Swamy-Pepakayala/cca-infra
         token: ${{ secrets.GCP_TOKEN }}
       
  #   - name: Initialize github

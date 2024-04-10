@@ -19,7 +19,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        working-directory: C:\cca-config
+#        working-directory: C:\cca-config
 
     steps:
     # Checkout the repository to the GitHub Actions runner
@@ -47,9 +47,9 @@ jobs:
         
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init --var-file=dev.tfvars
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }} 
+      run: terraform init 
+     # env:
+     #   GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }} 
      #   PAT_TOKEN: ${{ secrets.GCP_TOKEN }}
 
 

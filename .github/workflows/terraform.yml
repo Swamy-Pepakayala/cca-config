@@ -30,6 +30,12 @@ jobs:
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
       
+    - name: Initialize github  
+      uses: actions/checkout@master
+      with:
+        repository: Swamy-Pepakayala/cca-modules
+        token: ${{ secrets.GCP_TOKEN }}
+      
  #   - name: Initialize github
   #    run: git config --global url."https://${{ secrets.GCP_TOKEN }}@github.com"
 #      env:

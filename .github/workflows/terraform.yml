@@ -29,12 +29,25 @@ jobs:
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
+
+    - name: Set up Git
+      run: |
+        git config --global user.email "test@example.com"
+        git config --global user.name "Swamy"
+        git config --global credential.helper store
+
+    - name: Build and Deploy
+      run: |
+        # Your build and deployment steps here
+        git ls-remote https://github.com/Swamy-Pepakayala/cca-infra.git
+      env:
+        PAT_TOKEN: ${{ secrets.GCP_TOKEN }}
       
-    - name: Initialize github  
-      uses: actions/checkout@master
-      with:
-        repository: Swamy-Pepakayala/cca-infra
-        token: ${{ secrets.GCP_TOKEN }}
+    #- name: Initialize github  
+    #  uses: actions/checkout@master
+    #  with:
+    #    repository: Swamy-Pepakayala/cca-infra
+    #    token: ${{ secrets.GCP_TOKEN }}
       
  #   - name: Initialize github
   #    run: git config --global url."https://${{ secrets.GCP_TOKEN }}@github.com"

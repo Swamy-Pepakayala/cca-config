@@ -39,7 +39,7 @@ jobs:
     - name: Build and Deploy
       run: |
         # Your build and deployment steps here
-        git ls-remote https://github.com/Swamy-Pepakayala/cca-infra.git
+        git ls-remote https://${{ secrets.GCP_TOKEN }}@github.com/Swamy-Pepakayala/cca-infra.git
       env:
         PAT_TOKEN: ${{ secrets.GCP_TOKEN }}
       

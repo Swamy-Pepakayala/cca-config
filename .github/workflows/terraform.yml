@@ -35,7 +35,9 @@ jobs:
         git config --global user.email "test@example.com"
         git config --global user.name "Swamy"
         git config --global credential.helper store
-
+      env:
+        PAT_TOKEN: ${{ secrets.GCP_TOKEN }}
+        
     - name: Build and Deploy
       run: |
         # Your build and deployment steps here

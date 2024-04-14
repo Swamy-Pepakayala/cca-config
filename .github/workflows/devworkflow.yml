@@ -40,7 +40,7 @@ jobs:
     - name: Terraform Init
       id: init
       run: |
-        working directory: pwd
+        cd ./
         terraform init
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}

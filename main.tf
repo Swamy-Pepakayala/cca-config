@@ -13,7 +13,7 @@ module "app-topic" {
   project_id	= var.project_id
   name		= ["cca-topic","cca-eventsharing"]
 }
-/*
+
 #create subscriptions for cca-topic
 module "app-pubsub-ccatopic" {
   source 	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//pubsub?ref=main"
@@ -129,7 +129,7 @@ module "app_bucket-retention" {
     delete_age = 21
   }
 }
-*/
+
 /*
 module "app-cloudrun" {
   source  	= "git::https://github.com/Swamy-Pepakayala/cca-modules.git//cloudrun?ref=main"

@@ -9,7 +9,7 @@ module "svc-account" {
 
 #topic creation iam binding
 module "app-topic" {
-  source 	= "git::https://github.com/Swamy-Pepakayala/cca-master.git//topic?ref=master"
+  source 	= "git::https://github.com/Swamy-Pepakayala/cca-infra.git//topic?ref=master"
   project_id	= var.project_id
   name		= ["cca-topic","cca-eventsharing"]
 }

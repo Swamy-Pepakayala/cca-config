@@ -1,4 +1,3 @@
-
 name: 'Terraform'
 
 on:
@@ -19,63 +18,39 @@ jobs:
     defaults:
       run:
         shell: bash
-    #    working-directory: pwd
 
     steps:
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        repo-token: ${{ secrets.GCP_TOKEN }}
+
+    - name: Authenticate with github.event_name
+      run: |
+        echo "machine github.com login ${{ secrets.USER_NAME }} password ${{ secrets.PAT_TOKEN }}" > ~/.netrc
 
     # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v1
-
-    - name: Set up Git
-      run: |
-        git config --global user.email "test@example.com"
-        git config --global user.name "Swamy"
-        git config --global credential.helper store
       env:
-        PAT_TOKEN: ${{ secrets.GCP_TOKEN }}
-        
-    - name: Build and Deploy
-      run: |
-        # Your build and deployment steps here
-        git ls-remote https://${{ secrets.GCP_TOKEN }}@github.com/Swamy-Pepakayala/cca-infra.git
-      env:
-        PAT_TOKEN: ${{ secrets.GCP_TOKEN }}
-      
-    #- name: Initialize github  
-    #  uses: actions/checkout@master
-    #  with:
-    #    repository: Swamy-Pepakayala/cca-infra
-    #    token: ${{ secrets.GCP_TOKEN }}
-      
- #   - name: Initialize github
-  #    run: git config --global url."https://${{ secrets.GCP_TOKEN }}@github.com"
-#      env:
- #       GITHUB_TOKEN: ${{ secrets.GCP_TOKEN }}
-   #   run: |
-    #    git config --global credential.helper store
-     #   git ls-remote https://github.com/Swamy-Pepakayala/cca-infra.git
-
-        
+        GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+     
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
       run: |
         terraform init
-    # working-directory: /home/runner/work/cca-config/cca-config
-      
-   #   env:
-    #    GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }} 
-     #   PAT_TOKEN: ${{ secrets.GCP_TOKEN }}
-
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+        repo-token: ${{ secrets.GCP_TOKEN }}
+        Username:  ${{ secrets.USER_NAME }}
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
       run: terraform plan -input=false --var-file=dev.tfvars
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+        PAT_TOKEN: ${{ secrets.GCP_TOKEN }}
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks

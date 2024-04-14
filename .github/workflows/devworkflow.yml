@@ -1,65 +1,48 @@
-name: 'Terraform'
+name: Terraform
 
 on:
   push:
-    branches: [ "DEV" ]
+    branches:
+      - dev  # Trigger on push events to the 'dev' branch
   pull_request:
-
-permissions:
-  contents: read
+    branches:
+      - dev  # Trigger on pull requests targeting the 'dev' branch
 
 jobs:
   terraform:
-    name: 'Terraform'
+    name: Terraform
     runs-on: ubuntu-latest
-    environment: DEV
-
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
-    defaults:
-      run:
-        shell: bash
 
     steps:
-    # Checkout the repository to the GitHub Actions runner
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        repo-token: ${{ secrets.GCP_TOKEN }}
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.repository }}  # Automatically checkout the current repository
+          token: ${{ secrets.GCP_TOKEN }}  # Use the provided token for repository access
 
-    - name: Authenticate with github.event_name
-      run: |
-        echo "machine github.com login ${{ secrets.USER_NAME }} password ${{ secrets.PAT_TOKEN }}" > ~/.netrc
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: latest  # Use the latest version of Terraform
 
-    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
-     
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      id: init
-      run: |
-        cd path/to/terraform/files
-        terraform init
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
-        repo-token: ${{ secrets.GCP_TOKEN }}
-        Username:  ${{ secrets.USER_NAME }}
+      - name: Terraform Init
+        run: |
+          cd path/to/terraform/files  # Navigate to the directory containing Terraform files
+          terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}  # Set Google Cloud credentials
 
-    # Generates an execution plan for Terraform
-    - name: Terraform Plan
-      run:
-        cd path/to/terraform/files
-        terraform plan -input=false --var-file=dev.tfvars
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
-        PAT_TOKEN: ${{ secrets.GCP_TOKEN }}
+      - name: Terraform Plan
+        run: |
+          cd path/to/terraform/files
+          terraform plan -input=false --var-file=dev.tfvars
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}  # Set Google Cloud credentials
 
-      # On push to "main", build or change infrastructure according to Terraform configuration files
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    - name: Terraform Apply
-      if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
-      run: terraform apply -auto-approve -input=false --var-file=dev.tfvars
-      env:
-        GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
+        run: |
+          cd path/to/terraform/files
+          terraform apply -auto-approve -input=false --var-file=dev.tfvars
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}  # Set Google Cloud credentials

@@ -40,7 +40,7 @@ jobs:
     - name: Terraform Init
       id: init
       run: |
-        cd ./
+        cd path/to/terraform/files
         terraform init
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
@@ -49,7 +49,9 @@ jobs:
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan -input=false --var-file=dev.tfvars
+      run:
+        cd path/to/terraform/files
+        terraform plan -input=false --var-file=dev.tfvars
       env:
         GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
         PAT_TOKEN: ${{ secrets.GCP_TOKEN }}

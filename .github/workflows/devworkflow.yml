@@ -3,46 +3,57 @@ name: Terraform
 on:
   push:
     branches:
-      - dev  # Trigger on push events to the 'dev' branch
+      - dev  
   pull_request:
-    branches:
-      - dev  # Trigger on pull requests targeting the 'dev' branch
-
+            
 jobs:
   terraform:
     name: Terraform
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          repository: ${{ github.repository }}  # Automatically checkout the current repository
-          token: ${{ secrets.GCP_TOKEN }}  # Use the provided token for repository access
+        #  repository: ${{ github.repository }}  # Automatically checkout the current repository
+        #  token: ${{ secrets.GCP_TOKEN }}  # Use the provided token for repository access
+          repo-token:  ${{ secrets.GCP_TOKEN }}
+
+      - name:  Authenticate with github.event_name
+        run: |
+          echo "machine github.com login ${{ secrets.USER_NAME}} password ${{ secrets.GCP_TOKEN }}" > ~/.netrc
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
-        with:
-          terraform_version: latest  # Use the latest version of Terraform
-
-      - name: Terraform Init
-        run: |
-          cd path/to/terraform/files  # Navigate to the directory containing Terraform files
-          terraform init
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}  # Set Google Cloud credentials
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+          
+      - name: Terraform Init
+        id:  init
+        run: |
+           cd path/to/terraform/files  # Navigate to the directory containing Terraform files
+           terraform init
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+          repo-token:  ${{ secrets.GCP_TOKEN }}
+          Username:  ${{ secrets.USER_NAME }}
 
       - name: Terraform Plan
+        id: plan
         run: |
-          
+          cd 
           terraform plan -input=false --var-file=dev.tfvars
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}  
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}
+          PAT_TOKEN:  ${{ secrets.GCP_TOKEN }}  
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
         run: |
-          cd path/to/terraform/files
+          cd 
           terraform apply -auto-approve -input=false --var-file=dev.tfvars
         env:
-          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}  # Set Google Cloud credentials
+          GOOGLE_CREDENTIALS: ${{ secrets.GCP_SA_KEY }}  
